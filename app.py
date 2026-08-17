@@ -146,7 +146,7 @@ elif pagina == "Análise Exploratória":
             "Desempenho por posição",
             "Objetivos roubados",
             "Wards destruídas",
-            "heatmap",
+            "Relação entre algumas colunas",
         ],
     )
     fig, ax = plt.subplots(figsize=(8, 4))
