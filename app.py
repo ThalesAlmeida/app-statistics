@@ -144,6 +144,7 @@ elif pagina == "Análise Exploratória":
             "KDA × Vitória",
             "Dano por minuto × Vitória",
             "Desempenho por posição",
+            "Objetivos roubados",
         ],
     )
     fig, ax = plt.subplots(figsize=(8, 4))
@@ -190,6 +191,14 @@ elif pagina == "Análise Exploratória":
         plt.title("Dano médio por minuto por posição")
         plt.xlabel("Posição")
         plt.ylabel("Dano por minuto")
+        plt.show()
+    elif tipo == "Objetivos roubados":
+        df_csv["resultado"] = df_csv["win"].map({False: "Derrota", True: "Vitória"})
+        opa = sns.barplot(data=df_csv, x="resultado", y="objectives_stolen")
+
+        plt.title("Objetivos roubados")
+        plt.xlabel("Resultado")
+        plt.ylabel("Média de objetivos roubados")
         plt.show()
 
     st.pyplot(fig)
