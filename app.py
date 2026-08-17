@@ -138,7 +138,6 @@ if pagina == "Início":
 elif pagina == "Análise Exploratória":
     st.title("Análise Exploratória")
     df_csv = carregar_csv()
-    print(df_csv.head(5))
     tipo = st.selectbox(
         "Escolha o gráfico:",
         [
@@ -150,6 +149,7 @@ elif pagina == "Análise Exploratória":
     fig, ax = plt.subplots(figsize=(8, 4))
     sns.set_theme(style="whitegrid")
     if tipo == "KDA × Vitória":
+        st.info("Jogadores com KDA maior realmente vencem mais partidas?")
         df_csv["kda_faixa"] = pd.cut(
             df_csv["kda"],
             bins=[0, 1, 2, 3, 5, 10, float("inf")],
@@ -167,6 +167,7 @@ elif pagina == "Análise Exploratória":
         plt.ylabel("Taxa de vitória")
         plt.show()
     elif tipo == "Dano por minuto × Vitória":
+        st.info("causar mais dano está relacionado com vencer?")
         df_csv["resultado"] = df_csv["win"].map({False: "Derrota", True: "Vitória"})
 
         sns.boxplot(data=df_csv, x="resultado", y="damage_per_minute")
@@ -176,6 +177,7 @@ elif pagina == "Análise Exploratória":
         plt.ylabel("Dano por minuto")
         plt.show()
     elif tipo == "Desempenho por posição":
+        st.info("Qual posição apresenta maior dano médio por minuto")
         dano_posicao = (
             df_csv.groupby("team_position")["damage_per_minute"]
             .mean()
