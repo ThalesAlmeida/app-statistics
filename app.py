@@ -145,6 +145,8 @@ elif pagina == "Análise Exploratória":
             "Dano por minuto × Vitória",
             "Desempenho por posição",
             "Objetivos roubados",
+            "Wards destruídas",
+            "heatmap",
         ],
     )
     fig, ax = plt.subplots(figsize=(8, 4))
@@ -194,11 +196,36 @@ elif pagina == "Análise Exploratória":
         plt.show()
     elif tipo == "Objetivos roubados":
         df_csv["resultado"] = df_csv["win"].map({False: "Derrota", True: "Vitória"})
-        opa = sns.barplot(data=df_csv, x="resultado", y="objectives_stolen")
+        sns.barplot(data=df_csv, x="resultado", y="objectives_stolen")
 
         plt.title("Objetivos roubados")
         plt.xlabel("Resultado")
         plt.ylabel("Média de objetivos roubados")
+        plt.show()
+    elif tipo == "Wards destruídas":
+        df_csv["resultado"] = df_csv["win"].map({False: "Derrota", True: "Vitória"})
+        sns.barplot(data=df_csv, x="resultado", y="wards_killed")
+        plt.title("Wards destruídas")
+        plt.xlabel("Resultado")
+        plt.ylabel("Média de wards destruídas")
+        plt.show()
+    elif tipo == "Relação entre algumas colunas":
+        colunas = [
+            "kills",
+            "deaths",
+            "assists",
+            "gold_earned",
+            "total_minions_killed",
+            "vision_score",
+            "total_damage_dealt_to_champions",
+            "damage_per_minute",
+            "kda",
+            "win",
+        ]
+        correlacao = df_csv[colunas].corr()
+        sns.heatmap(correlacao, annot=True)
+
+        plt.title("Correlação entre métricas")
         plt.show()
 
     st.pyplot(fig)
